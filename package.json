@@ -4,6 +4,7 @@
   "description": "worker example项目",
   "main": "work.js",
   "scripts": {
+    "dev": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,5 +12,8 @@
     "url": "https://gitee.com/sternelee/example-worker.git"
   },
   "author": "sternelee",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.5.21"
+  }
 }
