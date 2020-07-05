@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Web Worker</title>
+  <script src="./worker.js"></script>
+</head>
+<body>
+  <script>
+    // const debug = {hello: 'Worker'} 
+    // const blob = new Blob(
+    //   [JSON.stringify(debug, null, 2)],
+    //   {type : 'application/json'}
+    // )
+    // const worker1 = new Worker(URL.createObjectURL(blob))
+    // const response = "onmessage=function(e){postMessage('Worker: '+e.data);}";
+    // const worker2 = new Worker(
+    //   'data:application/javascript,' + encodeURIComponent(response) 
+    // );
+    
+    // worker2.onmessage = (e) => {
+    //   console.log('Response: ' + e.data);
+    // };
+    
+    // worker2.postMessage('Test');
+
+
+
+    // const response1 = `onmessage = ({ data }) => {
+    //   console.log('Message received from main script', data);
+    //   const {method} = data;
+    //   if (data.data && method === 'format') {
+    //     postMessage({
+    //       data: {
+    //         'res': 'I am a customized result string.',
+    //       }
+    //     });
+    //   }
+    //   console.log('Posting message back to main script');
+    // }`;
+    // const blob2 = new Blob([response1], {type: 'application/javascript'});
+    
+    // const worker3 = new Worker(
+    //   URL.createObjectURL(blob2)
+    // );
+    
+    // // 事件处理
+    // worker3.onmessage = (e) => {
+    //   console.log('worker3', e)
+    //   console.log(`Response: ${JSON.stringify(e.data)}`);
+    // };
+    // worker3.postMessage({
+    //   method: 'format', 
+    //   data: []
+    // });
+  </script> 
+</body>
+</html>

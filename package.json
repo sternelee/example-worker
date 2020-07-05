@@ -1,0 +1,15 @@
+{
+  "name": "example-worker",
+  "version": "1.0.0",
+  "description": "worker example项目",
+  "main": "work.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/sternelee/example-worker.git"
+  },
+  "author": "sternelee",
+  "license": "ISC"
+}
