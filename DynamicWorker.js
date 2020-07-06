@@ -1,47 +1,60 @@
 class DynamicWorker {
-  constructor(funcStr) {
-    const onMessageHandlerFn =
-      funcStr ||
-      `
-    self.onmessage = ({ data: { data, flag } }) => {
-      console.log('Message received from main script', data);
-      const { method } = data
-      if (data && method === 'format') {
-        self.postMessage({
-          data: data.data,
-          flag
-        });
-      } else if (data && method === 'add') {
-        self.postMessage({
-          data: data.data + data.data,
-          flag
-        })
-      }
-      console.log('Posting message back to main script');
-    };`;
-    const handleResult = ({ data: { data, flag } }) => {
-      const resolve = this.flagMapping[flag];
+  constructor(fn) {
+    this.flagMapping = {};
+    const handleResult = ({ data: { flag, data } }) => {
+      const { resolve, reject } = this.flagMapping[flag];
       if (resolve) {
         resolve(data);
         delete this.flagMapping[flag];
       }
+      if (reject) {
+        reject(data);
+        delete this.flagMapping[flag];
+      }
     };
+    const onMessageHandlerFn = `
+    const __fn = ${fn};
+    console.log(__fn);
+    self.onmessage = e => {
+      const { flag, method, args } = e.data;
+      console.log(flag, method, args);
+      const data = __fn[method] && __fn[method](...args) || null;
+      console.log('data', data);
+      self.postMessage({flag, data});
+    };
+    `;
     const blob = new Blob([onMessageHandlerFn], {
       type: "application/javascript",
     });
     this.worker = new Worker(URL.createObjectURL(blob));
+
+    // this.worker = new Worker(
+    //   "data:text/javascript," +
+    //     encodeURIComponent(`
+    //     'use strict';
+    //     const __fn = ${fn};
+    //     console.log(__fn);
+    //     self.onmessage = e => {
+    //       const { flag, method, args } = e.data;
+    //       console.log(flag, method, args);
+    //       const data = __fn[method] && __fn[method](...args) || null;
+    //       self.postMessage({flag, data});
+    //     };
+    //   `)
+    // );
     this.worker.addEventListener("message", handleResult);
-    this.flagMapping = {};
+    this.worker.addEventListener("error", handleResult);
     URL.revokeObjectURL(blob);
   }
-  send(data) {
-    const flag = new Date().toString() + parseInt(Math.random() * 100); // uuid
+  dispatch(method, ...args) {
+    const flag = `${new Date().getTime()}${parseInt(Math.random() * 1000)}`; // uuid
     this.worker.postMessage({
-      data,
       flag,
+      method,
+      args,
     });
-    return new Promise((res) => {
-      this.flagMapping[flag] = res;
+    return new Promise((resolve, reject) => {
+      this.flagMapping[flag] = { resolve, reject };
     });
   }
   close() {
@@ -49,37 +62,4 @@ class DynamicWorker {
   }
 }
 
-const worker = new DynamicWorker();
-
-worker
-  .send({
-    data: "哈哈",
-    method: "format",
-  })
-  .then((res) => {
-    console.log("res", res);
-  });
-
-worker
-  .send({
-    data: "哈哈2222",
-    method: "add",
-  })
-  .then((res) => {
-    console.log("res", res);
-  });
-
-setTimeout(() => {
-  worker
-    .send({
-      data: "很好啊啊啊",
-      method: "format",
-    })
-    .then((res) => {
-      console.log("res", res);
-    });
-}, 3000);
-
-// const worker1 = new DynamicWorker(`self.service = {
-//   double: value => value * 2
-// };`)
+export default DynamicWorker;

@@ -7,7 +7,7 @@
 #### 不可使用点
 
 1. 与主线程不在同一个上下文
-2. 不可操作 dom 文档
+2. 不可以操作 DOM，一切与 DOM 操作相关的函数、类都不能使用
 3. `window` 对象的某些属性和方法, 重点注意 `XMLHttpRequest` 只会返回 `null`
    > [Web Workers可以使用的函数和类](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
 
