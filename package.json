@@ -7,6 +7,7 @@
     "dev": "parcel index.html",
     "build": "npx webpack",
     "build:lodash": "parcel build lodash.ts --global modules",
+    "build:md5": "parcel build sparkMD5.ts --global modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +29,8 @@
     "crypto": "^1.0.1",
     "lena.js": "^0.3.1",
     "lodash": "^4.17.15",
-    "webpack": "^4.43.0"
+    "spark-md5": "^3.0.1",
+    "webpack": "^4.43.0",
+    "worker-loader": "^2.0.0"
   }
 }

@@ -108,14 +108,31 @@ const util = (method, ...args) => {
 
 #### 难点：如何将 `js` 代码以字符串传入 `web worker`
 
-##### 方式一： `webpack` 以字符串方式加载js文件:
+##### 方式一： `worker-loader` 以内联方式打包:
+
+```javascript
+{
+  test: /\.worker\.js$/,
+    use: {
+      loader: 'worker-loader',
+      options: { inline: true }
+    }
+}
+```
+
+##### 方式二： `webpack` 以字符串方式加载js文件:
 
 ```javascript
 import file from '!raw-loader!file.js'
 ```
 
-#### 方式二：`nodejs` 使用 `fs` 在读取编译后文件以字符串输出
+#### 方式三：`nodejs` 使用 `fs` 在读取编译后文件以字符串输出
 
+
+##### 扩展阅读：
+
+1. [石墨表格之 Web Worker 应用实战](https://juejin.im/entry/59b89c88f265da0664641382)
+2. [webpack使用](https://www.cnblogs.com/tugenhua0707/p/11253937.html)
 
 ### 最佳实践： 谷歌出品的 [comlink](https://github.com/GoogleChromeLabs/comlink)
 
