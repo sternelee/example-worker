@@ -17,7 +17,6 @@ const fileLoad = `{
     const reader = new FileReader();
     reader.onload = async () => {
       console.log(reader.result);
-      resolve(reader.result)
     }
     reader.readAsArrayBuffer(file);
   }
@@ -25,7 +24,7 @@ const fileLoad = `{
 
 const worker = new DynamicWorker(fileLoad);
 
-const fileDom = document.getElementById('file');
+const fileDom = document.getElementById('file') as HTMLInputElement;
 fileDom.addEventListener("change", function (e) {
   const file = fileDom.files[0];
   worker.dispatch('load', file)

@@ -4,6 +4,10 @@
 
 通过使用Web Workers，Web应用程序可以在独立于主线程的后台线程中，运行一个脚本操作。这样做的好处是可以在独立线程中执行费时的处理任务，从而允许主线程（通常是UI线程）不会因此被阻塞/放慢，从页实现多线程。
 
+主线程 => 创建 `worker` (`new Worker`(同源`js`链接)) -> 发送通知`postMessage` -> 接收通知`onmessage` -> 关闭`close`
+
+`worker`线程 => 程序逻辑 -> 接收命令`onmessage` -> 处理数据 -> 发送通知`postMessage` -> 关闭`terminate`
+
 #### 不可使用点
 
 1. 与主线程不在同一个上下文
@@ -114,3 +118,10 @@ import file from '!raw-loader!file.js'
 
 
 ### 最佳实践： 谷歌出品的 [comlink](https://github.com/GoogleChromeLabs/comlink)
+
+使用 `Promise` 和 `Proxy` 实现
+
+### 扩展阅读： web worker 加载 webWebAssembly
+
+1. [webassembly-web-workers](https://dzone.com/articles/webassembly-web-workers)
+2. [Using WebAssembly with Web Workers](https://www.sitepen.com/blog/using-webassembly-with-web-workers/)

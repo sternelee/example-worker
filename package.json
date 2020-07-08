@@ -5,6 +5,8 @@
   "main": "work.js",
   "scripts": {
     "dev": "parcel index.html",
+    "build": "npx webpack",
+    "build:lodash": "parcel build lodash.ts --global modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,6 +16,18 @@
   "author": "sternelee",
   "license": "ISC",
   "devDependencies": {
-    "esbuild": "^0.5.21"
+    "@types/node": "^14.0.19",
+    "esbuild": "^0.5.21",
+    "raw-loader": "^4.0.1",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.6",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.157",
+    "crypto": "^1.0.1",
+    "lena.js": "^0.3.1",
+    "lodash": "^4.17.15",
+    "webpack": "^4.43.0"
   }
 }

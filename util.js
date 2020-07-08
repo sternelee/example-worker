@@ -12,4 +12,4 @@ const yesterday = () => {
   return t.toISOString().split("T")[0];
 };
 
-const util = { UUIDGeneratorBrowser, yesterday }
+export default { UUIDGeneratorBrowser, yesterday }
