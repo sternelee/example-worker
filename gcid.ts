@@ -6,8 +6,8 @@ function callback (data?) {
 
 async function init(file) {
   const remoteFunction: any = Comlink.wrap(new Worker("http://172.25.208.1:5000/dist/gcidWorker.js"));
-  await remoteFunction.readFile(file)
-  await remoteFunction.callback(Comlink.proxy(callback));
+  // await remoteFunction.readFile(file)
+  await remoteFunction(file, Comlink.proxy(callback));
 }
 
 const fileDom = document.getElementById('file') as HTMLInputElement;

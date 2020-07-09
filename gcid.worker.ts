@@ -47,9 +47,9 @@ class Gcid {
 }
 
 const gcidTool = new Gcid();
-let file: any = null
+// let file: any = null
 
-async function readFile (cb) {
+async function readFile (file, cb) {
   gcidTool.create()
   const reader = new FileReader()  // FileReader实例
     const blockSize = calculateBlockSize(file.size)
@@ -79,9 +79,9 @@ async function readFile (cb) {
     }
 }
 
-const readFileGcid = {
-  readFile: (val) => file = val,
-  callback: readFile
-}
+// const readFileGcid = {
+//   readFile: (val) => file = val,
+//   callback: readFile
+// }
 
-Comlink.expose(readFileGcid)
+Comlink.expose(readFile)
