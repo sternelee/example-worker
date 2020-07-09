@@ -144,6 +144,10 @@ import file from '!raw-loader!file.js'
 
 使用 `Promise` 和 `Proxy` 实现
 
+实践demo: [gcid.ts](./gcid.ts) 和 [gcid.worker.ts](./gcid.worker.ts)
+
+注意：`proxy` 要与对应的方法传回调方法，不要传对象
+
 ### 扩展阅读： web worker 加载 webWebAssembly
 
 1. [webassembly-web-workers](https://dzone.com/articles/webassembly-web-workers)
