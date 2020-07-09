@@ -19,7 +19,7 @@ function md5 (file) {
             console.log('finished loading');
             const result = spark.end(false)
             console.info('computed hash', result);  // Compute hash
-
+            self.postMessage({datas: result}, "*"); // 无法发送信息
         }
     };
 

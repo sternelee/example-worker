@@ -25,10 +25,14 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "@types/crypto-js": "^3.1.47",
     "@types/lodash": "^4.14.157",
+    "comlink": "^4.3.0",
     "crypto": "^1.0.1",
+    "crypto-js": "^4.0.0",
     "lena.js": "^0.3.1",
     "lodash": "^4.17.15",
+    "regenerator-runtime": "^0.13.5",
     "spark-md5": "^3.0.1",
     "webpack": "^4.43.0",
     "worker-loader": "^2.0.0"

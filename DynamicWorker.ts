@@ -10,16 +10,21 @@ type IWorker = null | Worker
 class DynamicWorker {
   flagMapping: IFlagMap
   worker: IWorker
+  count: number
   constructor(fn: string) {
     this.flagMapping = {};
-    const handleResult = ({ data: { flag, data } }) => {
+    this.count = 0
+    const handleResult = ({ data }) => {
+      console.log('handleResult ' + this.count, data)
+      this.count += 1
+      const { flag, datas } = data
       const { resolve, reject } = this.flagMapping[flag];
       if (resolve) {
-        resolve(data);
+        resolve(datas);
         delete this.flagMapping[flag];
       }
       if (reject) {
-        reject(data);
+        reject(datas);
         delete this.flagMapping[flag];
       }
     };
@@ -28,8 +33,8 @@ class DynamicWorker {
     self.onmessage = e => {
       const { flag, method, args } = e.data;
       console.log(flag, method, args);
-      const data = method && modules && modules.default[method] && modules.default[method](...args) || null;
-      self.postMessage({flag, data});
+      const datas = method && modules && modules.default[method] && modules.default[method](...args) || null;
+      self.postMessage({flag, datas});
     };
     `;
     const blob = new Blob([onMessageHandlerFn], {

@@ -129,6 +129,12 @@ import file from '!raw-loader!file.js'
 #### 方式三：`nodejs` 使用 `fs` 在读取编译后文件以字符串输出
 
 
+#### 内联`Blob` 和 `Promise` 的不足
+
+1. `Promise` 只能响应处理对应的单条信息，持续响应还是需要 `onmessage` 原生方式 或 `Proxy`代理等方式实现
+2. 内联`Blob`增加了项目初始大小
+
+
 ##### 扩展阅读：
 
 1. [石墨表格之 Web Worker 应用实战](https://juejin.im/entry/59b89c88f265da0664641382)

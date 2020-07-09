@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web worker 基本使用</title>
+</head>
+<body>
+  <div id="app">
+    <input type="file" accept="image/png, image/jpeg" name="file" id="file">
+  </div>
+  <script>
+    const worker = new Worker('http://172.25.208.1:5000/worker-1.js');
+    worker.onmessage = (e) => {
+      console.log(e.data)
+    };
+    worker.postMessage({
+      count: 10
+    });
+
+    const md5Worker = new Worker('http://172.25.208.1:5000/dist/sparkMD5.woker.js');
+    md5Worker.onmessage = (e) => {
+      console.log(e.data);
+    };
+    const fileDom = document.getElementById('file');
+    fileDom.addEventListener("change", function (e) {
+      const file = fileDom.files[0];
+      console.log(file)
+      md5Worker.postMessage({file})
+    });
+  </script>
+</body>
+</html>

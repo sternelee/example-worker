@@ -1,7 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: './md5.js',
+  entry: {
+    index: './index.js',
+    md5: './md5.js',
+    gcidWorker: './gcid.worker.ts',
+    gcid: './gcid.ts'
+  },
   module: {
     rules: [
       {
@@ -11,10 +16,8 @@ module.exports = {
       },
       {
         test: /\.worker\.js$/,
-        use: {
-          loader: 'worker-loader',
-          options: { inline: true }
-        }
+        loader: 'worker-loader',
+        options: { inline: true, fallback: false }
       }
     ],
   },
@@ -22,7 +25,7 @@ module.exports = {
     extensions: [ '.ts', '.js' ],
   },
   output: {
-    filename: '[name].worker.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
 };
